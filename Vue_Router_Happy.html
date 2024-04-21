@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивный магазин</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/">Главная</router-link>
+        <router-link to="/hap">Список праздничных товаров</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/vue-router@3"></script>
+    <script>
+        const Home = { template: '<div><h3>Добро пожаловать в магазин "Всё для праздников!"</h3></div> ' }
+        const Hap = {
+            template: `
+        <div>
+          <h2>Всё для твоего близкого!</h2>
+          <ul>
+            <li v-for="hap in hap" :key="hap.id">
+               <div>
+                <img :src="hap.img" style="width: 100px; height: auto;">
+                <span>{{hap.name}} - {{ hap.price }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      `,
+            data() {
+                return {
+                    hap: [
+                        { id: 1, name: "Прикольный пакетик для подарка", price: "310руб.", img: "https://ir-2.ozone.ru/s3/multimedia-4/wc450/6155415424.jpg"},
+                        { id: 2, name: "Наипрекраснейшие шары ", price: "1000руб.", img: "https://ir-2.ozone.ru/s3/multimedia-b/wc450/6558458219.jpg"},
+                        { id: 3, name: "Наполнитель в коробку которая представлена ниже", price: "300руб.", img: "https://ir-2.ozone.ru/s3/multimedia-1-8/wc450/6985840004.jpg"},
+                        { id: 4, name: "Коробка для упаковки вашего замечательного подарка", price: "500руб.", img: "https://ir-2.ozone.ru/s3/multimedia-0/wc450/6723834804.jpg"}
+                    ]
+                }
+            }
+        }
+
+        const routes = [
+            { path: '/', component: Home },
+            { path: '/hap', component: Hap }
+        ]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        const app = new Vue({
+            router
+        }).$mount('#app')
+    </script>
+</body>
+</html>
